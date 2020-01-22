@@ -1,0 +1,102 @@
+Rules:
+input → program inputs  done
+
+program → main
+
+program → proc_decl_section main
+proc_decl_section → proc_decl
+proc_decl_section → proc_decl proc_decl_section
+
+proc_decl → PROC procedure_name procedure_body ENDPROC
+
+procedure_name → ID
+procedure_name → NUM
+
+procedure_body → statement_list
+
+statement_list → statement
+statement_list → statement statement_list
+
+statement → input_statement
+statement → output_statement
+statement → procedure_invocation
+statement → do_statement
+statement → assign_statement
+
+input_statement → INPUT ID SEMICOLON
+output_statement → OUTPUT ID SEMICOLON
+procedure_invocation → procedure_name SEMICOLON
+do_statement → DO ID procedure_invocation
+assign_statement → ID EQUAL expr SEMICOLON
+expr → primary
+expr → primary operator primary
+operator → PLUS
+operator → MINUS
+operator → MULT
+operator → DIV
+primary → ID
+primary → NUM
+main → MAIN procedure_body
+inputs → NUM
+inputs → NUM inputs
+
+
+definitions:
+char = a | b | ... | z | A | B | ... | Z | 0 | 1 | ... | 9
+letter = a | b | ... | z | A | B | ... | Z
+pdigit = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+digit = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9
+SEMICOLON = ;
+PLUS = +
+MINUS = -
+MULT = *
+DIV = /
+EQUAL = =
+MAIN = (M).(A).(I).(N)
+PROC = (P).(R).(O).(C)
+ENDPROC = (E).(N).(D).(P).(R).(O).(C)
+INPUT = (I).(N).(P).(U).(T)
+OUTPUT = (O).(U).(T).(P).(U).(T)
+DO = (D).(O)
+NUM = 0 | pdigit . digit*
+ID = letter . char*
+
+
+
+
+
+
+
+parses()
+{
+  parseSTMT_list();
+}
+
+parseSTMT_list()
+{
+  parseEXPR();
+
+  getToken()
+
+  if token == NUM
+      ungetToken();
+      parseSTMT_list();
+  else if token != END_OF_FILE
+          THROW!
+}
+
+parseEXPR()
+{
+  num = expect(NUM)
+  expect(MOD)
+  num2=expect(NUM)
+}
+
+
+
+
+statement → input_statement
+statement → output_statement
+statement → procedure_invocation
+statement → do_statement
+statement → assign_statement

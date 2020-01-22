@@ -1,0 +1,9 @@
+Rule-list → Rule Rule-list | Rule
+Id-list → ID Id-list | ID
+Rule → ID ARROW Right-hand-side HASH
+Right-hand-side → Id-list | 
+
+ID = letter (letter + digit)*
+HASH = #
+DOUBLEHASH = ##
+ARROW = ->
